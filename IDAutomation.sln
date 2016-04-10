@@ -1,0 +1,38 @@
+﻿
+Microsoft Visual Studio Solution File, Format Version 12.00
+# Visual Studio 14
+VisualStudioVersion = 14.0.24720.0
+MinimumVisualStudioVersion = 10.0.40219.1
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "IDAutomation", "Winform-IDAutomation\IDAutomation.csproj", "{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}"
+EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "NicelabelAutomation", "NicelabelAutomation\NicelabelAutomation.csproj", "{3175D140-94D6-4819-AD04-F5643010A383}"
+EndProject
+Global
+	GlobalSection(SolutionConfigurationPlatforms) = preSolution
+		Debug|Any CPU = Debug|Any CPU
+		Debug|x86 = Debug|x86
+		Release|Any CPU = Release|Any CPU
+		Release|x86 = Release|x86
+	EndGlobalSection
+	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Debug|x86.ActiveCfg = Debug|x86
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Debug|x86.Build.0 = Debug|x86
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Release|Any CPU.Build.0 = Release|Any CPU
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Release|x86.ActiveCfg = Release|x86
+		{A87FE60C-D337-42EE-AB87-3BB5F78E9C93}.Release|x86.Build.0 = Release|x86
+		{3175D140-94D6-4819-AD04-F5643010A383}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{3175D140-94D6-4819-AD04-F5643010A383}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{3175D140-94D6-4819-AD04-F5643010A383}.Debug|x86.ActiveCfg = Debug|x86
+		{3175D140-94D6-4819-AD04-F5643010A383}.Debug|x86.Build.0 = Debug|x86
+		{3175D140-94D6-4819-AD04-F5643010A383}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{3175D140-94D6-4819-AD04-F5643010A383}.Release|Any CPU.Build.0 = Release|Any CPU
+		{3175D140-94D6-4819-AD04-F5643010A383}.Release|x86.ActiveCfg = Release|Any CPU
+		{3175D140-94D6-4819-AD04-F5643010A383}.Release|x86.Build.0 = Release|Any CPU
+	EndGlobalSection
+	GlobalSection(SolutionProperties) = preSolution
+		HideSolutionNode = FALSE
+	EndGlobalSection
+EndGlobal
