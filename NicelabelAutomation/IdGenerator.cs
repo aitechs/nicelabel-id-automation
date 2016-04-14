@@ -5,10 +5,11 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using NiceLabel5WR;
+using System.IO;
 
 namespace NicelabelAutomation
 {
-    public  class IdGenerator:IDisposable
+    public  class IdGenerator: IDisposable
     {
 	    private NiceApp _niceLabel;
 	    private ICollection<Record> _records; 
@@ -19,6 +20,7 @@ namespace NicelabelAutomation
 
 	    public IdGenerator(string labelFile )
 	    {
+            if (!System.IO.File.Exists(labelFile)) throw new Exception("File Does NOT Exists!");
 		    _niceLabel = new NiceApp();
 		    LabelFilename = labelFile;
 			_records = new List<Record>();
@@ -26,9 +28,16 @@ namespace NicelabelAutomation
 
 	    public void Dispose()
 	    {
-		    //throw new NotImplementedException();
-		    _niceLabel.Quit();
-		    _niceLabel = null;
+            //throw new NotImplementedException();
+            try
+            {
+                _niceLabel.Quit();
+                _niceLabel = null;
+            }
+            catch
+            {
+
+            }
 	    }
 
 
@@ -46,23 +55,75 @@ namespace NicelabelAutomation
 
 	    public void Print(string printerName)
 	    {
-			RecordFetcher fetcher = new RecordFetcher();
+            FileInfo info = new FileInfo(LabelFilename);
+            
+            RecordFetcher fetcher = new RecordFetcher();
 		    _records = fetcher.GetRecords().ToList();
+            int labelId = _niceLabel.LabelOpen(info.FullName);
 
-		    NiceLabel label = _niceLabel.LabelOpenEx (LabelFilename);
-		    label.PrinterName = printerName;
-		    label.SessionStart();
-		    foreach (var item in _records)
-		    {
-			    foreach (var field in item.Fields())
-			    {
-					label.Variables.FindByName(field.Key).SetValue(field.Value);
-				}
+            _niceLabel.LabelSetPrinter(labelId, printerName);
+            _niceLabel.LabelSessionStart(labelId);
 
-				label.SessionPrint("1");
-			}
-			
-		    label.SessionEnd();
+            //var ret = _niceLabel.LabelSetVar(labelId, "Name", "HaroldCris",0, 0);
+            //_niceLabel.LabelSessionPrint(labelId, "1");
+
+            foreach (Record item in _records)
+            {
+                foreach (var field in item.Fields())
+                {
+                    //Setting: StudentNumber
+                    //Setting : BarcodeID
+                    //Setting : LRN
+                    //Setting : Name
+                    //Setting : Address
+                    //Setting : ContactAddress
+                    //Setting : ContactPerson
+                    //Setting : Grade
+                    //Setting : PictureBackground
+
+                    Console.WriteLine("Setting : " + field.Key);
+                    bool ret = _niceLabel.LabelSetVar(labelId, field.Key, field.Value, 0, 0);
+                }
+
+                //var f = item.Fields();
+                //string value;
+
+                //value = f.First(x => x.Key == "StudentNumber").Value;
+                //var ret = _niceLabel.LabelSetVar(labelId, "StudentNumber", value, 0, 0);
+
+                //value = f.First(x => x.Key == "BarcodeID").Value;
+                //_niceLabel.LabelSetVar(labelId, "BarcodeID", value, 0, 0);
+
+                //value = f.First(x => x.Key == "LRN").Value;
+                //_niceLabel.LabelSetVar(labelId, "LRN", value, 0, 0);
+
+                //value = f.First(x => x.Key == "Name").Value;
+                //_niceLabel.LabelSetVar(labelId, "Name", value, 0, 0);
+
+                //value = f.First(x => x.Key == "Address").Value;
+                //_niceLabel.LabelSetVar(labelId, "Address", value, 0, 0);
+
+                //value = f.First(x => x.Key == "ContactName").Value;
+                //_niceLabel.LabelSetVar(labelId, "ContactName", value, 0, 0);
+
+                //value = f.First(x => x.Key == "ContactAddress").Value;
+                //_niceLabel.LabelSetVar(labelId, "ContactAddress", value, 0, 0);
+
+                //value = f.First(x => x.Key == "ContactNumber").Value;
+                //_niceLabel.LabelSetVar(labelId, "ContactNumber", value, 0, 0);
+
+
+                //value = f.First(x => x.Key == "Grade").Value;
+                //_niceLabel.LabelSetVar(labelId, "Grade", value, 0, 0);
+
+                //value = f.FirstOrDefault(x => x.Key == "PictureFile").Value;
+                //if(value != null)
+                //    _niceLabel.LabelSetVar(labelId, "PictureFile", value, 0, 0);
+
+                _niceLabel.LabelSessionPrint(labelId, "1");
+            }
+            _niceLabel.LabelSessionEnd(labelId);
+            _niceLabel.LabelClose(labelId);
 	    }
     }
 
